@@ -34,6 +34,19 @@ class File(models.Model):
     library = models.ForeignKey(Library, on_delete=models.CASCADE, related_name="files")
     date = models.DateField()
     # TODO: also list all fields and classifications, including sorting.
+    wrong_order = models.IntegerField(default=0)
+    file_pass = models.IntegerField(default=0)
+    fail = models.IntegerField(default=0)
+    meta_call = models.IntegerField(default=0)
+    meta_ttl = models.IntegerField(default=0)
+    meta_vol = models.IntegerField(default=0)
+    pull_stat = models.IntegerField(default=0)
+    pull_loc = models.IntegerField(default=0)
+    pull_supp = models.IntegerField(default=0)
+    pull_hsup = models.IntegerField(default=0)
+    pull_due = models.IntegerField(default=0)
+    pull_mult = models.IntegerField(default=0)
+
 
     
     def upload(books):
@@ -55,10 +68,10 @@ class Book(models.Model):
     call_number = models.CharField(max_length=100)
     title = models.CharField(max_length=100)
     status = models.CharField(max_length=50)
+    inorder = models.BooleanField(default=True)
 
     def __str__(self):
         return f"{self.barcode} : {self.title}"
-
 
 """Adding migrations to apps Now, run python manage.py migrate --fake-initial , 
    and Django will detect that you have an initial migration and that the tables 
