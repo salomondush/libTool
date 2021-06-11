@@ -5,7 +5,16 @@
 
 {%  block body %}
 
-    <p>The landing page</p>
-
+<form  class="form-group" action="{% url 'library_options' %}" method='post'>
+    {% csrf_token %}
+    <select class="form-control" name="library" >
+        {% for library in libraries %}
+            <option value="{{library.id}}">{{library}}</option>
+        {% endfor %}
+        <option value="None">None</option>
+    </select>
+    <button type="submit" class="btn btn-success">Submit</button>
+</form>
     
+ 
 {% endblock %}

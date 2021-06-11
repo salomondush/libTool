@@ -2,12 +2,21 @@ from django.http import Http404
 from django.db import IntegrityError
 from io import StringIO
 from pycallnumber import callnumber
-from models import *
+import datetime
+from .models import *
 import csv
 
-file_pass ="PASS", fail="FAIL", meta_call="META-CALL", meta_ttl="META-TTL"
-meta_vol = "META-VOL", pull_stat='PULL-STAT', pull_loc='PULL-LOC', pull_supp="PULL-SUPP"
-pull_hsup='PULL-HSUPP', pull_due='PULL-DUE', pull_mult='PULL-MULT'
+file_pass ="PASS"
+fail="FAIL"
+meta_call="META-CALL"
+meta_ttl="META-TTL"
+meta_vol = "META-VOL"
+pull_stat='PULL-STAT'
+pull_loc='PULL-LOC'
+pull_supp="PULL-SUPP"
+pull_hsup='PULL-HSUPP'
+pull_due='PULL-DUE'
+pull_mult='PULL-MULT'
 
 
 def compareBooks(prev_book: Book, current_book: Book, file: File):
@@ -59,14 +68,15 @@ def process_book_file(books_file, library: Library, date):
     for row in csv.reader(StringIO(books), delimeter=',', quotechar='|'):
         # if nothing in the database, we write in the first line
         if (len(file.file_books.all()) == 0):
-            Book.objects.create(
+            Book.objects.create( # TODO: if the starting book has a status
                 file=file,
                 library=library,
                 barCode=row[1].strip(),
                 location=row[2].strip(),
                 call_number= (f"{row[3]} {row[4]}").strip(),
                 title=row[5],
-                status=row[11].strip()
+                status=row[11].strip(),
+                date= datetime.date.today()
             )
 
         else:
@@ -82,7 +92,8 @@ def process_book_file(books_file, library: Library, date):
                     location=row[2].strip(),
                     call_number= (f"{row[3]} {row[4]}").strip(),
                     title=row[5],
-                    status=row[11].strip()
+                    status=row[11].strip(),
+                    date=datetime.date.today()
                 )
 
                 # call function to compare books

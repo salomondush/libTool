@@ -33,7 +33,6 @@ class Library(models.Model):
 class File(models.Model):
     library = models.ForeignKey(Library, on_delete=models.CASCADE, related_name="files")
     date = models.DateField()
-    # TODO: also list all fields and classifications, including sorting.
     wrong_order = models.IntegerField(default=0)
     file_pass = models.IntegerField(default=0)
     fail = models.IntegerField(default=0)
@@ -47,21 +46,12 @@ class File(models.Model):
     pull_due = models.IntegerField(default=0)
     pull_mult = models.IntegerField(default=0)
 
-
-    
-    def upload(books):
-        # TODO: Finish this function
-        """reads file with books and bulk uploads them
-        pre: a file with books
-        post: returns boolean indicating if the books were installed
-        """
-
     def __str__(self):
         return f'{self.name} - {self.date.strftime("%m/%d/%y")}' 
 
 
 class Book(models.Model):
-    file = models.ForeignKey(File, delete=models.CASCADE, related_name="file_books")
+    file = models.ForeignKey(File, on_delete=models.CASCADE, related_name="file_books")
     library = models.ForeignKey(Library, on_delete=models.CASCADE, related_name="library_books")
     barCode = models.CharField(max_length=100, unique=True) # to avoid duplicates
     location = models.CharField(max_length=50)
@@ -69,6 +59,7 @@ class Book(models.Model):
     title = models.CharField(max_length=100)
     status = models.CharField(max_length=50)
     inorder = models.BooleanField(default=True)
+    date = models.DateField()
 
     def __str__(self):
         return f"{self.barcode} : {self.title}"
