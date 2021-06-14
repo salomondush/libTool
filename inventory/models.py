@@ -31,11 +31,12 @@ class Library(models.Model):
         return f"{self.name}"
 
 class File(models.Model):
+    name = models.CharField(max_length=100, default=f"Untitled-{date.today().strftime('%m/%d/%y')}")
     library = models.ForeignKey(Library, on_delete=models.CASCADE, related_name="files")
     date = models.DateField()
     wrong_order = models.IntegerField(default=0)
     file_pass = models.IntegerField(default=0)
-    fail = models.IntegerField(default=0)
+    not_found = models.IntegerField(default=0)
     meta_call = models.IntegerField(default=0)
     meta_ttl = models.IntegerField(default=0)
     meta_vol = models.IntegerField(default=0)
@@ -56,13 +57,13 @@ class Book(models.Model):
     barCode = models.CharField(max_length=100, unique=True) # to avoid duplicates
     location = models.CharField(max_length=50)
     call_number = models.CharField(max_length=100)
-    title = models.CharField(max_length=100)
-    status = models.CharField(max_length=50)
+    title = models.CharField(max_length=500)
+    status = models.CharField(max_length=50, default="PASS")
     inorder = models.BooleanField(default=True)
     date = models.DateField()
 
     def __str__(self):
-        return f"{self.barcode} : {self.title}"
+        return f"{self.barCode} : {self.title}"
 
 """Adding migrations to apps Now, run python manage.py migrate --fake-initial , 
    and Django will detect that you have an initial migration and that the tables 

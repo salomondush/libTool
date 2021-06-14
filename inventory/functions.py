@@ -8,6 +8,7 @@ import csv
 
 file_pass ="PASS"
 fail="FAIL"
+not_found="NOT-FOUND"
 meta_call="META-CALL"
 meta_ttl="META-TTL"
 meta_vol = "META-VOL"
@@ -36,7 +37,7 @@ def compareBooks(prev_book: Book, current_book: Book, file: File):
     status = current_book.status
     
     if status == file_pass: file.file_pass += 1
-    if status == fail: file.fail += 1
+    if status == not_found: file.not_found += 1
     if status == meta_call: file.meta_call += 1
     if status == meta_ttl: file.meta_ttl += 1
     if status == meta_vol: file.meta_vol += 1
@@ -51,21 +52,30 @@ def compareBooks(prev_book: Book, current_book: Book, file: File):
 
 def process_book_file(books_file, library: Library, date):
     # check if it's a csv file
-    if not books_file.endswith(".csv"):
+    if not books_file.name.endswith(".csv"):
         return Http404("This is not a csv file")
 
     # creating a file instance
     file = File.objects.create(
+        name=books_file.name,
         library=library,
         date = date
     )
 
 
     books = books_file.read().decode('UTF-8')
-    io_string = StringIO(books)
-    next(io_string) # skip first line
+    book_rows = csv.reader(StringIO(books), delimiter=',', quotechar='|')
+
+    # skip first line 
+    next(book_rows)
     
-    for row in csv.reader(StringIO(books), delimeter=',', quotechar='|'):
+    i = 0
+
+    for row in book_rows:
+
+        print(f"BarCode: {row[1]} Location: {row[2].strip()} call number: {row[3]} {row[4]} Title: {row[5]} status: {row[11].strip()} \n")
+
+
         # if nothing in the database, we write in the first line
         if (len(file.file_books.all()) == 0):
             Book.objects.create( # TODO: if the starting book has a status
@@ -76,10 +86,11 @@ def process_book_file(books_file, library: Library, date):
                 call_number= (f"{row[3]} {row[4]}").strip(),
                 title=row[5],
                 status=row[11].strip(),
-                date= datetime.date.today()
+                date= date
             )
 
         else:
+            print("\n\n That way \n\n")
             # we get the last entry in database
             prev_book = Book.objects.last()
 
@@ -93,7 +104,7 @@ def process_book_file(books_file, library: Library, date):
                     call_number= (f"{row[3]} {row[4]}").strip(),
                     title=row[5],
                     status=row[11].strip(),
-                    date=datetime.date.today()
+                    date=date
                 )
 
                 # call function to compare books

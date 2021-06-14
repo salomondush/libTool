@@ -2,6 +2,188 @@
 
 {% block title %} {{library}} {% endblock %}
 
-{% block body %}
-    <p>displays libraries dashboard</p>
+{% block main %}
+    <div class="container-fluid px-4">
+        <h1 class="mt-4">Dashboard</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item active">{{library}}</li>
+        </ol>
+        <div class="row">
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-white mb-4">
+                    <div class="card-body">PASS <span class="badge badge-secondary">{{classifications.file_pass}}</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small stretched-link" href="#">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div class="card bg-danger text-white mb-4">
+                    <div class="card-body">NOT-FOUND <span class="badge badge-secondary">{{classifications.not_found}}</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div style="background-color: #FF5E00" class="card text-white mb-4">
+                    <div class="card-body">METAL-CALL <span class="badge badge-secondary">{{classifications.meta_call}}</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div style="background-color:cornflowerblue;" class="card text-white mb-4">
+                    <div class="card-body">META-TTL <span class="badge badge-secondary">{{classifications.meta_ttl}}</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div  class="card bg-success text-white mb-4">
+                    <div class="card-body">META-VOL<span class="badge badge-secondary">{{classifications.meta_vol}}</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div style="color: #DAA520" class="card bg-warning text-white mb-4">
+                    <div class="card-body">PULL-STAT <span class="badge badge-secondary">{{classifications.pull_stat}}</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div style="background-color: #FFFF00;" class="card mb-4">
+                    <div class="card-body">PULL-LOC <span class="badge badge-secondary">{{classifications.pull_loc}}</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small stretched-link" href="#">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div style="background-color: #D2B48C;" class="card text-white mb-4">
+                    <div class="card-body">PULL-SUPP <span class="badge badge-secondary">{{classifications.pull_supp}}</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div style="background-color: #800080;" class="card text-white mb-4">
+                    <div class="card-body">PULL-HSUPP <span class="badge badge-secondary">{{classifications.pull_hsupp}}</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div style="background-color: #00ff00;" class="card text-white mb-4">
+                    <div class="card-body">PULL-DUE <span class="badge badge-secondary">{{classifications.pull_due}}</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div style="background-color: #808080;" class="card text-white mb-4">
+                    <div class="card-body">PULL-MULT <span class="badge badge-secondary">{{classifications.pull_mult}}</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6">
+                <div style="background-color: #ffc0cb;" class="card text-white mb-4">
+                    <div class="card-body">FAIL <span class="badge badge-secondary">{{classifications.pull_mult}}</div>
+                    <div class="card-footer d-flex align-items-center justify-content-between">
+                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--
+            <div class="row">
+            <div class="col-xl-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-area me-1"></i>
+                        Area Chart Example
+                    </div>
+                    <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-chart-bar me-1"></i>
+                        Bar Chart Example
+                    </div>
+                    <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
+                </div>
+            </div>
+        </div>
+        -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Latest scanned books
+            </div>
+            <div class="card-body">
+                <table id="datatablesSimple">
+                    <thead>
+                        <tr>
+                            <th>Barcode</th>
+                            <th>Location</th>
+                            <th>Call Number</th>
+                            <th>Title</th>
+                            <th>Inorder</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Barcode</th>
+                            <th>Location</th>
+                            <th>Call number</th>
+                            <th>Title</th>
+                            <th>Inorder</th>
+                            <th>Status</th>
+                            <th>Date</th>
+                        </tr>
+                    </tfoot>
+                    <tbody>
+                        {% for book in books_scanned %}
+                        <tr>
+                            <td>{{book.barCode}}</td>
+                            <td>{{book.location}}</td>
+                            <td>{{book.call_number}}</td>
+                            <td>{{book.title}}</td>
+                            <td>{{book.inorder}}</td>
+                            <td>{{book.status}}</td>
+                            <td>{{book.date}}</td>
+                        </tr>  
+                        {% endfor %}  
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 {% endblock %}

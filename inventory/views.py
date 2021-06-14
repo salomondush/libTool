@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponseRedirect, JsonResponse
 from django.urls import reverse
-from datetime import date, datetime
+from datetime import date
 from .forms import UploadFileForm
 from .models import *
 from .functions import *
@@ -42,7 +42,7 @@ def load_library(request, library_id):
     pre: library name
     post: returns all information needed to land the library's dashboard
     """
-
+ 
     # library instance
     try:
         library = Library.objects.get(pk=library_id)
@@ -50,24 +50,25 @@ def load_library(request, library_id):
         raise Http404("Library with ID does not exist")
 
     # all classifications
-    classifications = {
-        "file_pass": library.objects.filter(status=file_pass).count(), 
-        "fail": library.objects.filter(status=fail).count(), 
-        "meta_call": library.objects.filter(status=meta_call).count(), 
-        "meta_ttl": library.objects.filter(status=meta_ttl).count(), 
-        "meta_vol": library.objects.filter(status=meta_vol).count(), 
-        "pull_stat": library.objects.filter(status=pull_stat).count(), 
-        "pull_loc": library.objects.filter(status=pull_loc).count(), 
-        "pull_supp": library.objects.filter(status=pull_supp).count(), 
-        "pull_hsup": library.objects.filter(status=pull_hsup).count(), 
-        "pull_due": library.objects.filter(status=pull_due).count(), 
-        "pull_mult": library.objects.filter(status=pull_mult).count(), 
+    classifications = { 
+        "file_pass": library.library_books.filter(status=file_pass).count(), 
+        "not_found": library.library_books.filter(status=not_found).count(), 
+        "meta_call": library.library_books.filter(status=meta_call).count(), 
+        "meta_ttl": library.library_books.filter(status=meta_ttl).count(), 
+        "meta_vol": library.library_books.filter(status=meta_vol).count(), 
+        "pull_stat": library.library_books.filter(status=pull_stat).count(), 
+        "pull_loc": library.library_books.filter(status=pull_loc).count(), 
+        "pull_supp": library.library_books.filter(status=pull_supp).count(), 
+        "pull_hsup": library.library_books.filter(status=pull_hsup).count(), 
+        "pull_due": library.library_books.filter(status=pull_due).count(), 
+        "pull_mult": library.library_books.filter(status=pull_mult).count(), 
     }
 
     context = {
         "files_num": library.files.count(),
         "books_scanned": library.library_books.order_by("-date"),
-        "classifications": classifications
+        "classifications": classifications,
+        "library": library
     }
 
     return render(request, "inventory/index.html", context)
@@ -90,21 +91,25 @@ def log_file(request, library_id):
 
     if request.method == 'GET':
         form = UploadFileForm()
-        form.date = datetime.date.today()
-        form.library = library.name
-        
 
         return render(request, "inventory/upload.html", {
-            "form": form
+            "form": form,
+            "library": library
         })
 
     form = UploadFileForm(request.POST, request.FILES)
     if form.is_valid():
         books_file = request.FILES['file']
-        date = form.changed_data['date']
+        date = form.cleaned_data['date']
         
         process_book_file(books_file, library, date)
 
-        # reload library dashboard
         return HttpResponseRedirect(reverse("load_library", args=(library.id,)))
+    else:
+
+        return render(request, "inventory/upload.html", {
+            "form": form,
+            "library": library,
+        })
+        
 

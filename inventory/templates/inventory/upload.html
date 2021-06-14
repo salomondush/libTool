@@ -1,0 +1,14 @@
+{% extends "inventory/layout.html" %}
+
+{% block title %} Upload {% endblock %}
+
+{% block main %}
+    <p><b>Submit file form</b></p>
+    <form action="{% url 'log_file' library.id %}" enctype="multipart/form-data" method="post" class='form-group'>
+        {% csrf_token %}
+        {{form}}
+        {{form.errors}}
+        {{ form.non_field_errors }}
+        <button class="btn btn-primary" type="submit">submit</button>
+    </form>
+{% endblock %}
