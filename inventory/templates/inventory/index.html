@@ -4,93 +4,95 @@
 
 {% block main %}
     <div class="container-fluid px-4">
-        <h1 class="mt-4">Dashboard</h1>
+        
+        <p><h2 class="mt-4 text-primary">{{num_books}}</h2> books scanned</p>
         <ol class="breadcrumb mb-4">
             <li class="breadcrumb-item active">{{library}}</li>
         </ol>
         <div class="row">
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-2 col-md-6">
                 <div class="card bg-white mb-4">
                     <div class="card-body">PASS <span class="badge badge-secondary">{{classifications.file_pass}}</div>
+                    <div class="card-body">Wrong order <span class="badge badge-secondary">{{classifications.wrong_order}}</span></div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
                         <a class="small stretched-link" href="#">View Details</a>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-2 col-md-6">
                 <div class="card bg-danger text-white mb-4">
-                    <div class="card-body">NOT-FOUND <span class="badge badge-secondary">{{classifications.not_found}}</div>
+                    <div class="card-body">NOT-FOUND <span class="badge badge-secondary">{{classifications.not_found}}</span></div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
                         <a class="small text-white stretched-link" href="#">View Details</a>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-2 col-md-6">
                 <div style="background-color: #FF5E00" class="card text-white mb-4">
-                    <div class="card-body">METAL-CALL <span class="badge badge-secondary">{{classifications.meta_call}}</div>
+                    <div class="card-body">METAL-CALL<span class="badge badge-secondary">{{classifications.meta_call}}</span></div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
                         <a class="small text-white stretched-link" href="#">View Details</a>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-2 col-md-6">
                 <div style="background-color:cornflowerblue;" class="card text-white mb-4">
-                    <div class="card-body">META-TTL <span class="badge badge-secondary">{{classifications.meta_ttl}}</div>
+                    <div class="card-body">META-TTL<span class="badge badge-secondary">{{classifications.meta_ttl}}</span></div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
                         <a class="small text-white stretched-link" href="#">View Details</a>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-2 col-md-6">
                 <div  class="card bg-success text-white mb-4">
-                    <div class="card-body">META-VOL<span class="badge badge-secondary">{{classifications.meta_vol}}</div>
+                    <div class="card-body">META-VOL<span class="badge badge-secondary">{{classifications.meta_vol}}</span></div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
                         <a class="small text-white stretched-link" href="#">View Details</a>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-2 col-md-6">
                 <div style="color: #DAA520" class="card bg-warning text-white mb-4">
-                    <div class="card-body">PULL-STAT <span class="badge badge-secondary">{{classifications.pull_stat}}</div>
+                    <div class="card-body">PULL-STAT <span class="badge badge-secondary">{{classifications.pull_stat}}</span></div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
                         <a class="small text-white stretched-link" href="#">View Details</a>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-2 col-md-6">
                 <div style="background-color: #FFFF00;" class="card mb-4">
-                    <div class="card-body">PULL-LOC <span class="badge badge-secondary">{{classifications.pull_loc}}</div>
+                    <div class="card-body">PULL-LOC <span class="badge badge-secondary">{{classifications.pull_loc}}</span></div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
                         <a class="small stretched-link" href="#">View Details</a>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-2 col-md-6">
                 <div style="background-color: #D2B48C;" class="card text-white mb-4">
-                    <div class="card-body">PULL-SUPP <span class="badge badge-secondary">{{classifications.pull_supp}}</div>
+                    <div class="card-body">PULL-SUPP <span class="badge badge-secondary">{{classifications.pull_supp}}</span></div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
                         <a class="small text-white stretched-link" href="#">View Details</a>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-2 col-md-6">
                 <div style="background-color: #800080;" class="card text-white mb-4">
-                    <div class="card-body">PULL-HSUPP <span class="badge badge-secondary">{{classifications.pull_hsupp}}</div>
+                    <div class="card-body">PULL-HSUPP <span class="badge badge-secondary">{{classifications.pull_hsupp}}</span></div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
                         <a class="small text-white stretched-link" href="#">View Details</a>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-2 col-md-6">
                 <div style="background-color: #00ff00;" class="card text-white mb-4">
                     <div class="card-body">PULL-DUE <span class="badge badge-secondary">{{classifications.pull_due}}</div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
@@ -99,7 +101,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-2 col-md-6">
                 <div style="background-color: #808080;" class="card text-white mb-4">
                     <div class="card-body">PULL-MULT <span class="badge badge-secondary">{{classifications.pull_mult}}</div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
@@ -108,9 +110,9 @@
                     </div>
                 </div>
             </div>
-            <div class="col-xl-3 col-md-6">
+            <div class="col-xl-2 col-md-6">
                 <div style="background-color: #ffc0cb;" class="card text-white mb-4">
-                    <div class="card-body">FAIL <span class="badge badge-secondary">{{classifications.pull_mult}}</div>
+                    <div class="card-body">FAIL <span class="badge badge-secondary">{{classifications.fail}}</span></div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
                         <a class="small text-white stretched-link" href="#">View Details</a>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>

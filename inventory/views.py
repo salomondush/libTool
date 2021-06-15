@@ -61,14 +61,16 @@ def load_library(request, library_id):
         "pull_supp": library.library_books.filter(status=pull_supp).count(), 
         "pull_hsup": library.library_books.filter(status=pull_hsup).count(), 
         "pull_due": library.library_books.filter(status=pull_due).count(), 
-        "pull_mult": library.library_books.filter(status=pull_mult).count(), 
+        "pull_mult": library.library_books.filter(status=pull_mult).count(),
+        "wrong_order": library.library_books.filter(inorder=False).count() 
     }
 
     context = {
         "files_num": library.files.count(),
         "books_scanned": library.library_books.order_by("-date"),
         "classifications": classifications,
-        "library": library
+        "library": library,
+        "num_books": library.library_books.count()
     }
 
     return render(request, "inventory/index.html", context)
@@ -103,6 +105,7 @@ def log_file(request, library_id):
         date = form.cleaned_data['date']
         
         process_book_file(books_file, library, date)
+        #xls_reader(books_file)
 
         return HttpResponseRedirect(reverse("load_library", args=(library.id,)))
     else:

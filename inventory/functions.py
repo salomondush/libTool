@@ -6,6 +6,12 @@ import datetime
 from .models import *
 import csv
 
+import pandas as pd
+
+from pyexcel_xls import get_data as xls_get
+from pyexcel_xlsx import get_data as xlsx_get
+
+
 file_pass ="PASS"
 fail="FAIL"
 not_found="NOT-FOUND"
@@ -30,8 +36,9 @@ def compareBooks(prev_book: Book, current_book: Book, file: File):
 
     if (current_book.call_number != "" and prev_book.call_number != "") and \
             callnumber(current_book.call_number) >  callnumber(prev_book.call_number):
-                file.wrong_order += 1
-                current_book.inorder = False
+        file.wrong_order += 1
+        current_book.inorder = False
+        current_book.save()
 
     # check for other issues
     status = current_book.status
@@ -47,6 +54,8 @@ def compareBooks(prev_book: Book, current_book: Book, file: File):
     if status == pull_hsup: file.pull_hsup += 1
     if status == pull_due: file.pull_due += 1
     if status == pull_mult: file.pull_mult += 1
+
+    file.save()
     
 
 
@@ -64,20 +73,17 @@ def process_book_file(books_file, library: Library, date):
 
 
     books = books_file.read().decode('UTF-8')
-    book_rows = csv.reader(StringIO(books), delimiter=',', quotechar='|')
+    book_rows = csv.reader(StringIO(books), delimiter=',')
 
     # skip first line 
     next(book_rows)
-    
-    i = 0
 
     for row in book_rows:
 
-        print(f"BarCode: {row[1]} Location: {row[2].strip()} call number: {row[3]} {row[4]} Title: {row[5]} status: {row[11].strip()} \n")
-
+        print(row[3] + " " + row[4])
 
         # if nothing in the database, we write in the first line
-        if (len(file.file_books.all()) == 0):
+        if (len(file.file_books.all()) == 0 and len(Book.objects.all()) == 0):
             Book.objects.create( # TODO: if the starting book has a status
                 file=file,
                 library=library,
@@ -90,9 +96,8 @@ def process_book_file(books_file, library: Library, date):
             )
 
         else:
-            print("\n\n That way \n\n")
-            # we get the last entry in database
-            prev_book = Book.objects.last()
+            # we get the last book entry of the library
+            prev_book = library.library_books.all().last()
 
             # compare it to the current entry in csv
             try:
@@ -112,3 +117,20 @@ def process_book_file(books_file, library: Library, date):
 
             except IntegrityError:
                 pass
+
+
+def xls_reader(books_file):
+
+    if (str(books_file).endswith("xls")):
+        data = xls_get(books_file, column_limit=4)
+    elif (str(books_file).endswith("xls")):
+        data = xlsx_get(books_file, column_limit=4)
+    else:
+        raise Http404("Please upload an excel file")
+
+    print(data)
+        
+
+
+
+    

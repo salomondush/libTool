@@ -37,6 +37,7 @@ class File(models.Model):
     wrong_order = models.IntegerField(default=0)
     file_pass = models.IntegerField(default=0)
     not_found = models.IntegerField(default=0)
+    fail = models.IntegerField(default=0)
     meta_call = models.IntegerField(default=0)
     meta_ttl = models.IntegerField(default=0)
     meta_vol = models.IntegerField(default=0)
@@ -57,8 +58,8 @@ class Book(models.Model):
     barCode = models.CharField(max_length=100, unique=True) # to avoid duplicates
     location = models.CharField(max_length=50)
     call_number = models.CharField(max_length=100)
-    title = models.CharField(max_length=500)
-    status = models.CharField(max_length=50, default="PASS")
+    title = models.CharField(max_length=800)
+    status = models.CharField(default="PASS", max_length=50)
     inorder = models.BooleanField(default=True)
     date = models.DateField()
 
