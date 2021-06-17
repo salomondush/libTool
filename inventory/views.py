@@ -29,7 +29,12 @@ def index(request):
 
     else:
 
-        library_id = int(request.POST["library"])
+        library_id = request.POST["library"]
+
+        if library_id == "None":
+            return render(request, "inventory/landing.html")
+        
+        library_id = int(library_id)
 
         # load librarie's dashboard
         return HttpResponseRedirect(reverse("load_library", args=(library_id,)))

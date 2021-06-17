@@ -6,10 +6,6 @@ import datetime
 from .models import *
 import csv
 
-import pandas as pd
-
-from pyexcel_xls import get_data as xls_get
-from pyexcel_xlsx import get_data as xlsx_get
 
 
 file_pass ="PASS"
@@ -119,7 +115,7 @@ def process_book_file(books_file, library: Library, date):
                 pass
 
 
-def xls_reader(books_file):
+"""def xls_reader(books_file):
 
     if (str(books_file).endswith("xls")):
         data = xls_get(books_file, column_limit=4)
@@ -128,7 +124,7 @@ def xls_reader(books_file):
     else:
         raise Http404("Please upload an excel file")
 
-    print(data)
+    print(data)"""
         
 
 

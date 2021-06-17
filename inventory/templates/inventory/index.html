@@ -15,8 +15,13 @@
                     <div class="card-body">PASS <span class="badge badge-secondary">{{classifications.file_pass}}</div>
                     <div class="card-body">Wrong order <span class="badge badge-secondary">{{classifications.wrong_order}}</span></div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small stretched-link" href="#">View Details</a>
+                        <a class="small stretched-link" href="#" data-toggle="collapse" data-target="#collapseZero" aria-expanded="true" aria-controls="collapseOne">View Details</a>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                    <div id="collapseZero" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                          Information is valid | Sorted in wrong order
+                        </div>
                     </div>
                 </div>
             </div>
@@ -24,8 +29,13 @@
                 <div class="card bg-danger text-white mb-4">
                     <div class="card-body">NOT-FOUND <span class="badge badge-secondary">{{classifications.not_found}}</span></div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <a class="small stretched-link" href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">View Details</a>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                          No Alma data for barcode. Attach flag and pull item.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -33,8 +43,13 @@
                 <div style="background-color: #FF5E00" class="card text-white mb-4">
                     <div class="card-body">METAL-CALL<span class="badge badge-secondary">{{classifications.meta_call}}</span></div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <a class="small stretched-link" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseOne">View Details</a>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                    <div id="collapseTwo" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                          Bad Call Number. Attach flag and send to Metadata Services for correction.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -42,8 +57,13 @@
                 <div style="background-color:cornflowerblue;" class="card text-white mb-4">
                     <div class="card-body">META-TTL<span class="badge badge-secondary">{{classifications.meta_ttl}}</span></div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <a class="small stretched-link" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseOne">View Details</a>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                          Bad Title. Attach flag and send to Metadata Services for correction.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -51,8 +71,13 @@
                 <div  class="card bg-success text-white mb-4">
                     <div class="card-body">META-VOL<span class="badge badge-secondary">{{classifications.meta_vol}}</span></div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <a class="small stretched-link" href="#" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseOne">View Details</a>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                    <div id="collapseFour" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                          Bad Volume. Attach flag and send to Metadata Services for correction.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -60,8 +85,13 @@
                 <div style="color: #DAA520" class="card bg-warning text-white mb-4">
                     <div class="card-body">PULL-STAT <span class="badge badge-secondary">{{classifications.pull_stat}}</span></div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <a class="small stretched-link" href="#" data-toggle="collapse" data-target="#collapseFive" aria-expanded="true" aria-controls="collapseOne">View Details</a>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                    <div id="collapseFive" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                          Incorrect process type. Attach flag and pull item. Send to Access Services for correction
+                        </div>
                     </div>
                 </div>
             </div>
@@ -69,8 +99,13 @@
                 <div style="background-color: #FFFF00;" class="card mb-4">
                     <div class="card-body">PULL-LOC <span class="badge badge-secondary">{{classifications.pull_loc}}</span></div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small stretched-link" href="#">View Details</a>
+                        <a class="small stretched-link" href="#" data-toggle="collapse" data-target="#collapseSix" aria-expanded="true" aria-controls="collapseOne">View Details</a>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                    <div id="collapseSix" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                          Incorrect location. Attach flag and pull item. Send to Access Services for correction.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -78,8 +113,13 @@
                 <div style="background-color: #D2B48C;" class="card text-white mb-4">
                     <div class="card-body">PULL-SUPP <span class="badge badge-secondary">{{classifications.pull_supp}}</span></div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <a class="small stretched-link" href="#" data-toggle="collapse" data-target="#collapseSeven" aria-expanded="true" aria-controls="collapseOne">View Details</a>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                    <div id="collapseSeven" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                          Bib is marked as suppressed. Attach flag and pull item. Send to Access Services for correction.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -87,8 +127,13 @@
                 <div style="background-color: #800080;" class="card text-white mb-4">
                     <div class="card-body">PULL-HSUPP <span class="badge badge-secondary">{{classifications.pull_hsupp}}</span></div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <a class="small stretched-link" href="#" data-toggle="collapse" data-target="#collapseEight" aria-expanded="true" aria-controls="collapseOne">View Details</a>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                    <div id="collapseEight" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                          Holding is suppressed. Attach flag and pull item. Send to Access Services for correction.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -96,8 +141,13 @@
                 <div style="background-color: #00ff00;" class="card text-white mb-4">
                     <div class="card-body">PULL-DUE <span class="badge badge-secondary">{{classifications.pull_due}}</div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <a class="small stretched-link" href="#" data-toggle="collapse" data-target="#collapseNine" aria-expanded="true" aria-controls="collapseOne">View Details</a>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                    <div id="collapseNine" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                          Item is checked out in Alma. Attach flag and pull item. Send to Access Services for correction.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -105,8 +155,13 @@
                 <div style="background-color: #808080;" class="card text-white mb-4">
                     <div class="card-body">PULL-MULT <span class="badge badge-secondary">{{classifications.pull_mult}}</div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <a class="small stretched-link" href="#" data-toggle="collapse" data-target="#collapseTen" aria-expanded="true" aria-controls="collapseOne">View Details</a>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                    <div id="collapseTen" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                            Multiple problems. Attach flags and pull item. Send to Access Services for correction.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -114,8 +169,13 @@
                 <div style="background-color: #ffc0cb;" class="card text-white mb-4">
                     <div class="card-body">FAIL <span class="badge badge-secondary">{{classifications.fail}}</span></div>
                     <div class="card-footer d-flex align-items-center justify-content-between">
-                        <a class="small text-white stretched-link" href="#">View Details</a>
+                        <a class="small stretched-link" href="#" data-toggle="collapse" data-target="#collapseEleven" aria-expanded="true" aria-controls="collapseOne">View Details</a>
                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                    </div>
+                    <div id="collapseEleven" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                          Retrieval failed. Try to refresh again. File a ticket with LIT if the issue persists.
+                        </div>
                     </div>
                 </div>
             </div>

@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+import pymysql
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,13 +28,13 @@ SECRET_KEY = '6uq6%(=m!nv@_0lzs3&a)m_xg2@q_ioi2dnibib02$3rq(efh@'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'inventory',
+    'inventory.apps.InventoryConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -70,16 +73,50 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'libTool.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+
+pymysql.install_as_MySQLdb()
+
+if os.getenv("GAE_APPLICATION", None):
+    # Running on production App Engine
+
+    DATABASES = {
+        
+
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': '/cloudsql/valibtool:us-central1:libtool-instance',
+            'USER': "salomon",
+            'PASSWORD': '8{aGt_s=F+Nf7w3M',
+            'NAME': 'main'
+        }
     }
-}
+
+else:
+    # locally
+    """DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }"""
+
+    DATABASES = {
+        
+
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'HOST': '127.0.0.1',
+            'PORT': '3306',
+            'NAME': 'main',
+            'USER': "salomon",
+            'PASSWORD': '8{aGt_s=F+Nf7w3M',
+        }
+    }
+
+
 
 
 # Password validation
@@ -119,3 +156,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
