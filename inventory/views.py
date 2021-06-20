@@ -72,7 +72,7 @@ def load_library(request, library_id):
 
     context = {
         "files_num": library.files.count(),
-        "books_scanned": library.library_books.order_by("-date"),
+        "books_scanned": library.library_books.order_by("id"),
         "classifications": classifications,
         "library": library,
         "num_books": library.library_books.count()
@@ -120,4 +120,28 @@ def log_file(request, library_id):
             "library": library,
         })
         
+def load_files(request, library_id):
 
+    try:
+        library = Library.objects.get(pk=library_id)
+    except Library.DoesNotExist:
+        raise Http404("Can't find specific library")
+
+    return render(request, "inventory/files.html", {
+        "files": library.files.all(),
+        "library": library
+    })
+
+
+def delete_file(request, file_id):
+
+    try:
+        file = File.objects.get(pk=file_id)
+        library_id = file.library.id
+        file.delete()
+    except File.DoesNotExist:
+        raise Http404("Specified file not found")
+
+    return HttpResponseRedirect(reverse("load_files", args=(library_id,)))
+
+    

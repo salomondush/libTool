@@ -3,7 +3,14 @@
 {% block title %} Upload {% endblock %}
 
 {% block main %}
-    <p><b>Submitted Files</b></p>
-    
-    
+    <h5>All files</h5>
+    {% if files %}
+        <ul class="list-group">
+            {% for file in files %}
+                <li class="list-group-item list-group-item-action">{{file.name}} <a class="float-right" href="{% url 'delete_file' file.id %}">delete</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You don't have any files</p>
+    {% endif %}
 {% endblock %}
