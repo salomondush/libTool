@@ -20,6 +20,7 @@ pull_supp="PULL-SUPP"
 pull_hsup='PULL-HSUPP'
 pull_due='PULL-DUE'
 pull_mult='PULL-MULT'
+BAR_CODE_LENGTH = 14
 
 
 def compareBooks(prev_book: Book, current_book: Book, file: File):
@@ -77,7 +78,8 @@ def process_book_file(books_file, library: Library, date):
     for row in book_rows:
 
         # if nothing in the database, we write in the first line
-        if (len(file.file_books.all()) == 0 and len(Book.objects.all()) == 0):
+        if (len(file.file_books.all()) == 0 and len(Book.objects.all()) == 0) \
+        and len(row[1].strip()) == BAR_CODE_LENGTH:
             Book.objects.create( # TODO: if the starting book has a status
                 file=file,
                 library=library,
@@ -95,19 +97,20 @@ def process_book_file(books_file, library: Library, date):
 
             # compare it to the current entry in csv
             try:
-                book = Book.objects.create(
-                    file=file,
-                    library=library,
-                    barCode=row[1].strip(),
-                    location=row[2].strip(),
-                    call_number= (f"{row[3]} {row[4]}").strip(),
-                    title=row[5],
-                    status=row[11].strip(),
-                    date=date
-                )
+                if (len(row[1].strip()) == BAR_CODE_LENGTH):
+                    book = Book.objects.create(
+                        file=file,
+                        library=library,
+                        barCode=row[1].strip(),
+                        location=row[2].strip(),
+                        call_number= (f"{row[3]} {row[4]}").strip(),
+                        title=row[5],
+                        status=row[11].strip(),
+                        date=date
+                    )
 
-                # call function to compare books
-                compareBooks(prev_book, book, file)
+                    # call function to compare books
+                    compareBooks(prev_book, book, file)
 
             except IntegrityError:
                 pass
