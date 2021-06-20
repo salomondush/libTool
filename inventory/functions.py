@@ -76,8 +76,6 @@ def process_book_file(books_file, library: Library, date):
 
     for row in book_rows:
 
-        print(row[3] + " " + row[4])
-
         # if nothing in the database, we write in the first line
         if (len(file.file_books.all()) == 0 and len(Book.objects.all()) == 0):
             Book.objects.create( # TODO: if the starting book has a status
