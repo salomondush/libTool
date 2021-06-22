@@ -1,22 +1,16 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
 
 from datetime import date
-# Create your models here.
 
-# #Add more information on these models
-# class User(AbstractUser):
+class User(models.Model):
+    first_name = models.CharField(blank=True, max_length=100)
+    last_name = models.CharField(blank=True, max_length=100)
+    email = models.CharField(blank=True, max_length=250)
 
-#     def is_valid_user(self):
-#         return ((len(self.username) > 0) and (len(self.gender) > 0)
-#                 and (len(self.email) > 0) and (self.date_of_birth 
-#                 > date(1818, 1, 1)))
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
 
-#     def __str__(self):
-#         return f"{self.first_name} {self.last_name}"
 
-#         #You can also use hasattr to avoid the need for exception catching:
-#         #hasattr.(u, "doctor"), which returns "True" or "False"
 
 class Library(models.Model):
     name = models.CharField(max_length=100) 

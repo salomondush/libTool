@@ -5,11 +5,11 @@ from django.http import Http404
 # project/users/adapter.py:
 from django.conf import settings
 from allauth.account.adapter import DefaultAccountAdapter
+from .models import User
+from .functions import get_user_emails
 
 
-allowed_emails = [ #TODO: setup a user model in database for allowed users
-    "salomon.dushimirimana@vanderbilt.edu"
-]
+allowed_emails = get_user_emails(User.objects.all())
 
 class CustomSocialAccountAdapter(DefaultSocialAccountAdapter):
     def pre_social_login(self, request, sociallogin):

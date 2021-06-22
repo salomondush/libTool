@@ -116,6 +116,21 @@ def process_book_file(books_file, library: Library, date):
                 pass
 
 
+
+def get_user_emails(users):
+    """Extracts email addresses from user objects
+    pre: a list of user object -- users
+    post: a list of email addressess 
+    """
+    emails = []
+
+    for user in users:
+        emails.append(user.email)
+
+    return emails
+
+
+
 """def xls_reader(books_file):
 
     if (str(books_file).endswith("xls")):
