@@ -2,6 +2,7 @@ from django.http.response import HttpResponse
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http import Http404, HttpResponseRedirect, JsonResponse
+from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from datetime import date
 from .forms import UploadFileForm
@@ -9,6 +10,7 @@ from .models import *
 from .functions import *
 from io import StringIO
 import csv
+
 
 
 # Create your views here.
@@ -81,7 +83,9 @@ def load_library(request, library_id):
     return render(request, "inventory/index.html", context)
 
 
+@login_required(redirect_field_name="account_login", login_url="/accounts/login")
 def log_file(request, library_id):
+
     # TODO: clear up the description and function and then finish code
     # TODO: testing
     """Function receives a file containing books and then creates a file instance for the current library
@@ -119,8 +123,10 @@ def log_file(request, library_id):
             "form": form,
             "library": library,
         })
-        
+
+@login_required(redirect_field_name="account_login", login_url="/accounts/login")
 def load_files(request, library_id):
+
 
     try:
         library = Library.objects.get(pk=library_id)
@@ -133,6 +139,7 @@ def load_files(request, library_id):
     })
 
 
+@login_required(redirect_field_name="account_login", login_url="/accounts/login")
 def delete_file(request, file_id):
 
     try:

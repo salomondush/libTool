@@ -30,8 +30,40 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
+# ACCOUNT_ADAPTER = 'inventory.adapters.CustomAccountAdapter'
+SOCIALACCOUNT_ADAPTER = "inventory.adapters.CustomSocialAccountAdapter"
+
+# project/settings.py:
+# ACCOUNT_ADAPTER = 'inventory.adapters.MyAccountAdapter'
+
 
 # Application definition
+
+AUTHENTICATION_BACKENDS = [
+
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'SCOPE': [
+            'profile',
+            'email',
+        ],
+        'AUTH_PARAMS': {
+            'access_type': 'online',
+        }
+    }
+}
+
+LOGIN_REDIRECT_URL = '/'
+
 
 INSTALLED_APPS = [
     'inventory.apps.InventoryConfig',
@@ -41,7 +73,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 ]
+
+SITE_ID = 1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

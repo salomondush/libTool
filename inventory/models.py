@@ -4,14 +4,8 @@ from django.contrib.auth.models import AbstractUser
 from datetime import date
 # Create your models here.
 
-##Add more information on these models
+# #Add more information on these models
 # class User(AbstractUser):
-#     phone = models.CharField(max_length=20)
-#     date_of_birth = models.DateField()
-#     city = models.CharField(max_length=100)
-#     country = models.CharField(max_length=100, blank=True)
-#     is_doctor = models.BooleanField()
-#     gender = models.CharField(max_length=1, blank=True)
 
 #     def is_valid_user(self):
 #         return ((len(self.username) > 0) and (len(self.gender) > 0)
