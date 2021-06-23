@@ -1,27 +1,33 @@
-{% extends "account/base.html" %}
+{% extends "inventory/base.html" %}
 
 {% load i18n %}
+
 {% load account socialaccount %}
 
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
 
-<div class="container">
+<div>
 
   <h1>{% trans "Sign In" %}</h1>
 
   {% get_providers as socialaccount_providers %}
 
   {% if socialaccount_providers %}
-  <p>Please sign in with one
-  of your existing third party accounts.</p>
+  <p>Please sign in with an authorized instituation email address.</p>
 
   <div class="socialaccount_ballot">
 
     <ul class="socialaccount_providers">
       {% include "socialaccount/snippets/provider_list.html" with process="login" %}
     </ul>
+
+    <!-- <button class="btn btn-primary text-warning">{% include "socialaccount/snippets/provider_list.html" with process="login" %}</button> -->
+
+    <!-- <div class="row container">
+      <div class="col-md-12"> <a class="btn btn-lg btn-google btn-block text-uppercase btn-outline" href='#'><img src="https://img.icons8.com/color/16/000000/google-logo.png"> </a> </div>
+    </div> -->
 
     <!-- <div class="login-or">{% trans 'or' %}</div> -->
 

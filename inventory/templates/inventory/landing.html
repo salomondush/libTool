@@ -1,44 +1,16 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>LibTool</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-        <link rel="stylesheet" href="{% static 'inventory/css/style.css' %}">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
-    </head>
-    <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <!-- Navbar showing library name-->
-            <a class="navbar-brand ps-3" href="index.html">LibTool</a>
-            <!-- Sidebar Toggle-->
-        </nav>
-        <div id="layoutSidenav_content">
-            <main>
-                <form  class="form-group" action="{% url 'library_options' %}" method='post'>
-                    {% csrf_token %}
-                    <select class="form-control" name="library" >
-                        {% for library in libraries %}
-                            <option value="{{library.id}}">{{library}}</option>
-                        {% endfor %}
-                        <option value="None">None</option>
-                    </select>
-                    <button type="submit" class="btn btn-success">Submit</button>
-                </form>
-            </main>
-            <footer class="py-4 bg-light mt-auto">
-                <div class="container-fluid px-4">
-                    <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; libtTool 2021</div>
-                    </div>
-                </div>
-            </footer>
-        </div>
-    </body>
-</html>
+{% extends "inventory/base.html" %}
+
+{% block main %}
+    <p><b>Select Library: </b></p>
+    <form  class="form-group" action="{% url 'library_options' %}" method='post'>
+        {% csrf_token %}
+        <select class="form-control" name="library" >
+            {% for library in libraries %}
+                <option value="{{library.id}}">{{library}}</option>
+            {% endfor %}
+            <option value="None">None</option>
+        </select>
+        <button type="submit" class="btn btn-success">Submit</button>
+    </form>
+
+{% endblock %}
