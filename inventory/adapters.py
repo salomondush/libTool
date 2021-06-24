@@ -1,6 +1,7 @@
 # from allauth.account.adapter import DefaultAccountAdapter
 from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
+from django.urls import reverse
 
 # project/users/adapter.py:
 from django.conf import settings
@@ -14,8 +15,9 @@ allowed_emails = get_user_emails(User.objects.all())
 class CustomSocialAccountAdapter(DefaultSocialAccountAdapter):
     def pre_social_login(self, request, sociallogin):
         u = sociallogin.account.user
+        print(u.email)
         if u.email not in allowed_emails:
-            raise Http404("Please login using the instituation email address with access!")
+            raise Http404("Ooops! Please login using the instituation email address with access!")
 
 
 # class MyAccountAdapter(DefaultAccountAdapter):

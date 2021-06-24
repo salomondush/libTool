@@ -34,7 +34,7 @@ def index(request):
         library_id = request.POST["library"]
 
         if library_id == "None":
-            return render(request, "inventory/landing.html")
+            return HttpResponseRedirect(reverse("library_options"))
         
         library_id = int(library_id)
 
@@ -54,30 +54,37 @@ def load_library(request, library_id):
     try:
         library = Library.objects.get(pk=library_id)
     except Library.DoesNotExist:
-        raise Http404("Library with ID does not exist")
+        return render(request, "inventory/index.html", {
+            "message": "Library with ID does not exist"
+        })
 
-    # all classifications
-    classifications = { 
-        "file_pass": library.library_books.filter(status=file_pass).count(), 
-        "not_found": library.library_books.filter(status=not_found).count(), 
-        "meta_call": library.library_books.filter(status=meta_call).count(), 
-        "meta_ttl": library.library_books.filter(status=meta_ttl).count(), 
-        "meta_vol": library.library_books.filter(status=meta_vol).count(), 
-        "pull_stat": library.library_books.filter(status=pull_stat).count(), 
-        "pull_loc": library.library_books.filter(status=pull_loc).count(), 
-        "pull_supp": library.library_books.filter(status=pull_supp).count(), 
-        "pull_hsup": library.library_books.filter(status=pull_hsup).count(), 
-        "pull_due": library.library_books.filter(status=pull_due).count(), 
-        "pull_mult": library.library_books.filter(status=pull_mult).count(),
-        "wrong_order": library.library_books.filter(inorder=False).count() 
-    }
+    books = library.library_books.order_by("id")
+
+    # call help function to classify books
+    classifications = classify_books(books)
+
+    # # all classifications
+    # classifications = { 
+    #     "file_pass": library.library_books.filter(status=file_pass).count(), 
+    #     "not_found": library.library_books.filter(status=not_found).count(), 
+    #     "meta_call": library.library_books.filter(status=meta_call).count(), 
+    #     "meta_ttl": library.library_books.filter(status=meta_ttl).count(), 
+    #     "meta_vol": library.library_books.filter(status=meta_vol).count(), 
+    #     "pull_stat": library.library_books.filter(status=pull_stat).count(), 
+    #     "pull_loc": library.library_books.filter(status=pull_loc).count(), 
+    #     "pull_supp": library.library_books.filter(status=pull_supp).count(), 
+    #     "pull_hsup": library.library_books.filter(status=pull_hsup).count(), 
+    #     "pull_due": library.library_books.filter(status=pull_due).count(), 
+    #     "pull_mult": library.library_books.filter(status=pull_mult).count(),
+    #     "wrong_order": library.library_books.filter(inorder=False).count() 
+    # }
 
     context = {
         "files_num": library.files.count(),
-        "books_scanned": library.library_books.order_by("id"),
+        "books_scanned": books,
         "classifications": classifications,
         "library": library,
-        "num_books": library.library_books.count()
+        "num_books": len(books)
     }
 
     return render(request, "inventory/index.html", context)
@@ -97,7 +104,9 @@ def log_file(request, library_id):
     try:
         library = Library.objects.get(pk=library_id)
     except Library.DoesNotExist:
-        raise Http404("Library with current id unavailable!")
+        return render(request, "inventory/index.html", {
+            "message": "Library with current id unavailable! Please go back"
+        })
 
 
     if request.method == 'GET':
@@ -112,8 +121,14 @@ def log_file(request, library_id):
     if form.is_valid():
         books_file = request.FILES['file']
         date = form.cleaned_data['date']
+
+        # check if it's a csv file
+        if not books_file.name.endswith(".csv"):
+            return render(request, "inventory/index.html", {
+                "message": "Specified file not found, please go back!"
+            })
         
-        process_book_file(books_file, library, date)
+        process_book_file(request, books_file, library, date)
         #xls_reader(books_file)
 
         return HttpResponseRedirect(reverse("load_library", args=(library.id,)))
@@ -131,7 +146,9 @@ def load_files(request, library_id):
     try:
         library = Library.objects.get(pk=library_id)
     except Library.DoesNotExist:
-        raise Http404("Can't find specific library")
+        return render(request, "inventory/index.html", {
+            "message": "Can't find specific library, please go back!"
+        })
 
     return render(request, "inventory/files.html", {
         "files": library.files.all(),
@@ -147,7 +164,9 @@ def delete_file(request, file_id):
         library_id = file.library.id
         file.delete()
     except File.DoesNotExist:
-        raise Http404("Specified file not found")
+        return render(request, "inventory/index.html", {
+            "message": "Specified file not found, please go back!"
+        })
 
     return HttpResponseRedirect(reverse("load_files", args=(library_id,)))
 

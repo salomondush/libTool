@@ -57,9 +57,6 @@ def compareBooks(prev_book: Book, current_book: Book, file: File):
 
 
 def process_book_file(books_file, library: Library, date):
-    # check if it's a csv file
-    if not books_file.name.endswith(".csv"):
-        return Http404("This is not a csv file")
 
     # creating a file instance
     file = File.objects.create(
@@ -130,6 +127,47 @@ def get_user_emails(users):
     return emails
 
 
+def classify_books(books):
+    """Puts books into classifications
+    pre: Array of books objects
+    post: count Dictionary of status codes
+    """
+
+    # all classifications
+    classifications = { 
+        "file_pass": 0,
+        "fail": 0,
+        "not_found": 0,
+        "meta_call": 0,
+        "meta_ttl": 0,
+        "meta_vol": 0,
+        "pull_stat": 0,
+        "pull_loc": 0,
+        "pull_supp": 0,
+        "pull_hsup": 0,
+        "pull_due": 0,
+        "pull_mult": 0,
+        "wrong_order": 0
+    }
+
+    for book in books:
+        status = book.status
+
+        if status == fail: classifications["fail"] += 1
+        if status == file_pass: classifications["file_pass"] += 1
+        if status == not_found: classifications["not_found"] += 1
+        if status == meta_call: classifications["meta_call"] += 1
+        if status == meta_ttl: classifications["meta_ttl"] += 1
+        if status == meta_vol: classifications["meta_vol"] += 1
+        if status == pull_stat: classifications["pull_stat"] += 1
+        if status == pull_loc: classifications["pull_loc"] += 1
+        if status == pull_supp: classifications["pull_supp"] += 1
+        if status == pull_hsup: classifications["pull_hsup"] += 1
+        if status == pull_due: classifications["pull_due"] += 1
+        if status == pull_mult: classifications["pull_mult"] += 1
+        if not book.inorder: classifications["wrong_order"] += 1
+
+    return classifications
 
 """def xls_reader(books_file):
 
