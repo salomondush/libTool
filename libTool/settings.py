@@ -33,8 +33,8 @@ ALLOWED_HOSTS = ["*"]
 # ACCOUNT_ADAPTER = 'inventory.adapters.CustomAccountAdapter'
 SOCIALACCOUNT_ADAPTER = "inventory.adapters.CustomSocialAccountAdapter"
 
-# project/settings.py:
-# ACCOUNT_ADAPTER = 'inventory.adapters.MyAccountAdapter'
+# ACCOUNT_ADAPTER = 'inventory.adapters.CustomAccountAdapter'
+# SOCIALACCOUNT_ADAPTER = 'inventory.adapters.CustomSocialAccountAdapter'
 
 
 # Application definition

@@ -170,4 +170,11 @@ def delete_file(request, file_id):
 
     return HttpResponseRedirect(reverse("load_files", args=(library_id,)))
 
+
+def unauthorized_login(request, message):
+
+    return render(request, "inventory/error.html", {
+        "message": "Please login using the instituation email address with access!"
+    })
+
     

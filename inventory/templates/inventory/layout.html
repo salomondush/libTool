@@ -30,7 +30,11 @@
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                        <!-- <li><a class="dropdown-item" href="#!">Activity Log</a></li> -->
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a></li>
+                        {% if user.is_authenticated %}
+                            <li><a class="dropdown-item" href="{% url 'account_logout' %}">Logout</a></li>
+                        {% else %}
+                            <li><a class="dropdown-item" href="{% url 'account_login' %}">Login</a></li>
+                        {% endif %}
                     </ul>
                 </li>
             </ul>
@@ -54,7 +58,7 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Files list <span class="text-muted"> (auth)</span>
                             </a> 
-                            
+                            <a class="btn btn-success" href="{% url 'library_options' %}">Chooose Library</a>
                         </div>
                     </div>
                     <!--<div class="sb-sidenav-footer">
