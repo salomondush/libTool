@@ -11,7 +11,7 @@ from .functions import *
 from io import StringIO
 import csv
 
-
+MAXIMUM_FILES = 2000
 
 # Create your views here.
 def index(request):
@@ -63,25 +63,10 @@ def load_library(request, library_id):
     # call help function to classify books
     classifications = classify_books(books)
 
-    # # all classifications
-    # classifications = { 
-    #     "file_pass": library.library_books.filter(status=file_pass).count(), 
-    #     "not_found": library.library_books.filter(status=not_found).count(), 
-    #     "meta_call": library.library_books.filter(status=meta_call).count(), 
-    #     "meta_ttl": library.library_books.filter(status=meta_ttl).count(), 
-    #     "meta_vol": library.library_books.filter(status=meta_vol).count(), 
-    #     "pull_stat": library.library_books.filter(status=pull_stat).count(), 
-    #     "pull_loc": library.library_books.filter(status=pull_loc).count(), 
-    #     "pull_supp": library.library_books.filter(status=pull_supp).count(), 
-    #     "pull_hsup": library.library_books.filter(status=pull_hsup).count(), 
-    #     "pull_due": library.library_books.filter(status=pull_due).count(), 
-    #     "pull_mult": library.library_books.filter(status=pull_mult).count(),
-    #     "wrong_order": library.library_books.filter(inorder=False).count() 
-    # }
 
     context = {
         "files_num": library.files.count(),
-        "books_scanned": books,
+        "books_scanned": books[:MAXIMUM_FILES],
         "classifications": classifications,
         "library": library,
         "num_books": len(books)
@@ -128,7 +113,7 @@ def log_file(request, library_id):
                 "message": "Specified file not found, please go back!"
             })
         
-        process_book_file(request, books_file, library, date)
+        process_book_file(books_file, library, date)
         #xls_reader(books_file)
 
         return HttpResponseRedirect(reverse("load_library", args=(library.id,)))
@@ -171,7 +156,7 @@ def delete_file(request, file_id):
     return HttpResponseRedirect(reverse("load_files", args=(library_id,)))
 
 
-def unauthorized_login(request, message):
+def unauthorized_login(request):
 
     return render(request, "inventory/error.html", {
         "message": "Please login using the instituation email address with access!"

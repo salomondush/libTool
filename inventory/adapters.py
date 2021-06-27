@@ -2,6 +2,7 @@
 from allauth.socialaccount.adapter import DefaultSocialAccountAdapter
 from django.http import Http404, HttpResponseRedirect
 from django.urls import reverse
+from django.shortcuts import render
 
 # project/users/adapter.py:
 from django.conf import settings
@@ -10,6 +11,8 @@ from .models import User
 from django.contrib.auth import logout
 from .functions import get_user_emails
 
+class HttpResponseRedirect(Exception):
+    pass
 
 allowed_emails = get_user_emails(User.objects.all())
 
@@ -20,7 +23,7 @@ class CustomSocialAccountAdapter(DefaultSocialAccountAdapter):
         if u.email not in allowed_emails:
             logout(request)
             raise Http404("Ooops! Please login using the instituation email address with access! Please go back.")
-            # ImmediateHttpResponse(render_to_response('error.html'))
+          
 
 
 # class CustomAccountAdapter(DefaultAccountAdapter):
@@ -37,4 +40,3 @@ class CustomSocialAccountAdapter(DefaultSocialAccountAdapter):
 #         #u.is_staff = u.email.split('@')[1] == "customdomain.com"
 #         print(f"\n\n\n {u.email in allowed_emails}\n\n\n")
 #         return u.email in allowed_emails
-           
