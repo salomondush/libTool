@@ -1,0 +1,6 @@
+.vscode
+env
+google-cloud-sdk
+__pycache__/
+.gcloudignore
+

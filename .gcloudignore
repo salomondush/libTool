@@ -12,6 +12,8 @@
 # below:
 .git
 .gitignore
+.vscode
+env
 
 # Python pycache:
 __pycache__/
