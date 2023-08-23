@@ -1,8 +1,8 @@
 # libTool
 
-This webtool helps in classifying information about scanned books in libraries mainly for error correction, wrong order, and wrong location. So far, it is being used by Vanderbilt University Central library, Sarah Shannon Stevenson Science & Engineering Library, and the Divinity library. All data is open for public access, except adding and viewing files.
+This webtool helps in classifying information about scanned books in libraries mainly for error correction, wrong order, and wrong location. This tool was used by Vanderbilt University Central library, Sarah Shannon Stevenson Science & Engineering Library, and the Divinity library during the summer of 2021. All data is open for public access, except adding and viewing files.
 
-You can navigate the link below of the actual website [libTool](https://valibtool.uc.r.appspot.com/)
+This tool is no longer in use and it's currently not deployed.
 
 # Using
   
