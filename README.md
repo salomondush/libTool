@@ -5,6 +5,8 @@ This webtool helps in classifying information about scanned books in libraries m
 This tool is no longer in use and it's currently not deployed.
 
 # Using
+
+![libtool](https://github.com/salomondush/libTool/assets/63796975/cd9d6289-1c30-4bba-9107-03ae8bf308dc)
   
  ## dashboard
  - On the landing page Select a specific library and submit
